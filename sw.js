@@ -1,12 +1,13 @@
-const VERSION = "96aaa74aab95668a";
-const PRECACHE = ["/assets/FBXLoader-BnRwXHaK.js","/assets/OBJLoader-D69cgR6-.js","/assets/PLYLoader-BReAEpNj.js","/assets/STLLoader-CPv6vuEa.js","/assets/draco_decoder-C32yEggz.wasm","/assets/draco_decoder-Z1_iN-Ht.wasm","/assets/draco_decoder-fzg4nYZr.js","/assets/draco_wasm_wrapper-DxJM36Ib.js","/assets/draco_wasm_wrapper-fZCQGLGb.js","/assets/index-CMoTEhLS.js","/assets/index-CthqBbXI.css","/decoders/draco/LICENSE","/decoders/draco/README.md","/decoders/draco/draco_decoder.js","/decoders/draco/draco_decoder.wasm","/decoders/draco/draco_wasm_wrapper.js","/favicon.svg","/icons/app-192.png","/icons/app-512.png","/icons/app-maskable-512.png","/icons/apple-touch-icon.png","/index.html","/manifest.webmanifest"];
+const VERSION = "252a74707dca2c3c";
+const PRECACHE = ["./assets/FBXLoader-sZ0x1a2G.js","./assets/OBJLoader-DDApL5-G.js","./assets/PLYLoader-JuxBEYg0.js","./assets/STLLoader-CUyC0FtW.js","./assets/draco_decoder-C32yEggz.wasm","./assets/draco_decoder-Z1_iN-Ht.wasm","./assets/draco_decoder-fzg4nYZr.js","./assets/draco_wasm_wrapper-DxJM36Ib.js","./assets/draco_wasm_wrapper-fZCQGLGb.js","./assets/index-CthqBbXI.css","./assets/index-DOI5ZOq1.js","./decoders/draco/LICENSE","./decoders/draco/README.md","./decoders/draco/draco_decoder.js","./decoders/draco/draco_decoder.wasm","./decoders/draco/draco_wasm_wrapper.js","./favicon.svg","./icons/app-192.png","./icons/app-512.png","./icons/app-maskable-512.png","./icons/apple-touch-icon.png","./index.html","./manifest.webmanifest"];
 /* VERSION and PRECACHE are injected by the shared web build. */
-const PREFIX = 'mindspace-shell-';
+const APP_ROOT = new URL('./', self.location.href);
+const PREFIX = 'mindspace-shell-' + encodeURIComponent(APP_ROOT.pathname) + '-';
 const CACHE = PREFIX + VERSION;
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
-    try { await cache.addAll(PRECACHE); }
+    try { await cache.addAll(PRECACHE.map(file => new URL(file, APP_ROOT).href)); }
     catch (error) { await caches.delete(CACHE); throw error; }
   })());
 });
@@ -23,9 +24,9 @@ self.addEventListener('message', event => {
 });
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (event.request.method !== 'GET' || url.origin !== APP_ROOT.origin || !url.pathname.startsWith(APP_ROOT.pathname)) return;
   if (event.request.mode === 'navigate') {
-    event.respondWith(caches.open(CACHE).then(async cache => (await cache.match('/index.html')) || fetch(event.request)));
+    event.respondWith(caches.open(CACHE).then(async cache => (await cache.match(new URL('index.html', APP_ROOT).href)) || fetch(event.request)));
     return;
   }
   event.respondWith((async () => {
