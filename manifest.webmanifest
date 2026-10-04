@@ -27,5 +27,36 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "Notes",
+      "short_name": "Notes",
+      "description": "Choose a workspace and open its notes.",
+      "url": "./?entry=notes",
+      "icons": [
+        {
+          "src": "./icons/notes-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Mind map",
+      "short_name": "Mind map",
+      "description": "Choose a workspace and open its map.",
+      "url": "./?entry=map",
+      "icons": [
+        {
+          "src": "./icons/app-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
 }
