@@ -1,17 +1,17 @@
 {
   "version": 1,
   "files": [
-    "assets/FBXLoader-BnBY2oZm.js",
-    "assets/OBJLoader-B9Mtti8M.js",
-    "assets/PLYLoader-0rI6dBkP.js",
-    "assets/STLLoader-Y5AmDa01.js",
+    "assets/FBXLoader-DCOQM2H8.js",
+    "assets/OBJLoader-DSXsGsid.js",
+    "assets/PLYLoader-DXDfc6K_.js",
+    "assets/STLLoader-CkDZRYuf.js",
+    "assets/app-Dj0hbylW.js",
+    "assets/app-DjJgUNLI.css",
     "assets/draco_decoder-C32yEggz.wasm",
     "assets/draco_decoder-Z1_iN-Ht.wasm",
     "assets/draco_decoder-fzg4nYZr.js",
     "assets/draco_wasm_wrapper-DxJM36Ib.js",
     "assets/draco_wasm_wrapper-fZCQGLGb.js",
-    "assets/index-BX7SwlVN.js",
-    "assets/index-SrL1AKoD.css",
     "decoders/draco/LICENSE",
     "decoders/draco/README.md",
     "decoders/draco/draco_decoder.js",
@@ -23,9 +23,14 @@
     "icons/app-maskable-512.png",
     "icons/apple-touch-icon.png",
     "icons/notes-192.png",
+    "icons/notes-512.png",
+    "icons/notes-apple-touch-icon.png",
+    "icons/notes-maskable-512.png",
     "icons/notes.svg",
     "index.html",
     "manifest.webmanifest",
+    "notes.html",
+    "notes.webmanifest",
     "sw.js"
   ]
 }

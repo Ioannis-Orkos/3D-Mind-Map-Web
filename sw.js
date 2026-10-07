@@ -1,5 +1,5 @@
-const VERSION = "683707f37fd377d2";
-const PRECACHE = ["./assets/FBXLoader-BnBY2oZm.js","./assets/OBJLoader-B9Mtti8M.js","./assets/PLYLoader-0rI6dBkP.js","./assets/STLLoader-Y5AmDa01.js","./assets/draco_decoder-C32yEggz.wasm","./assets/draco_decoder-Z1_iN-Ht.wasm","./assets/draco_decoder-fzg4nYZr.js","./assets/draco_wasm_wrapper-DxJM36Ib.js","./assets/draco_wasm_wrapper-fZCQGLGb.js","./assets/index-BX7SwlVN.js","./assets/index-SrL1AKoD.css","./decoders/draco/LICENSE","./decoders/draco/README.md","./decoders/draco/draco_decoder.js","./decoders/draco/draco_decoder.wasm","./decoders/draco/draco_wasm_wrapper.js","./favicon.svg","./icons/app-192.png","./icons/app-512.png","./icons/app-maskable-512.png","./icons/apple-touch-icon.png","./icons/notes-192.png","./icons/notes.svg","./index.html","./manifest.webmanifest"];
+const VERSION = "b1f7726322461f41";
+const PRECACHE = ["./assets/FBXLoader-DCOQM2H8.js","./assets/OBJLoader-DSXsGsid.js","./assets/PLYLoader-DXDfc6K_.js","./assets/STLLoader-CkDZRYuf.js","./assets/app-Dj0hbylW.js","./assets/app-DjJgUNLI.css","./assets/draco_decoder-C32yEggz.wasm","./assets/draco_decoder-Z1_iN-Ht.wasm","./assets/draco_decoder-fzg4nYZr.js","./assets/draco_wasm_wrapper-DxJM36Ib.js","./assets/draco_wasm_wrapper-fZCQGLGb.js","./decoders/draco/LICENSE","./decoders/draco/README.md","./decoders/draco/draco_decoder.js","./decoders/draco/draco_decoder.wasm","./decoders/draco/draco_wasm_wrapper.js","./favicon.svg","./icons/app-192.png","./icons/app-512.png","./icons/app-maskable-512.png","./icons/apple-touch-icon.png","./icons/notes-192.png","./icons/notes-512.png","./icons/notes-apple-touch-icon.png","./icons/notes-maskable-512.png","./icons/notes.svg","./index.html","./manifest.webmanifest","./notes.html","./notes.webmanifest"];
 /* VERSION and PRECACHE are injected by the shared web build. */
 const APP_ROOT = new URL('./', self.location.href);
 const PREFIX = 'mindspace-shell-' + encodeURIComponent(APP_ROOT.pathname) + '-';
@@ -26,7 +26,9 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET' || url.origin !== APP_ROOT.origin || !url.pathname.startsWith(APP_ROOT.pathname)) return;
   if (event.request.mode === 'navigate') {
-    event.respondWith(caches.open(CACHE).then(async cache => (await cache.match(new URL('index.html', APP_ROOT).href)) || fetch(event.request)));
+    // Keep each installed app's manifest and startup view when it opens offline.
+    const entry = url.pathname === new URL('notes.html', APP_ROOT).pathname ? 'notes.html' : 'index.html';
+    event.respondWith(caches.open(CACHE).then(async cache => (await cache.match(new URL(entry, APP_ROOT).href)) || fetch(event.request)));
     return;
   }
   event.respondWith((async () => {
